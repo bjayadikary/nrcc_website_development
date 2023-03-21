@@ -30,6 +30,7 @@ class Blogs(models.Model):
 	published_date = models.DateField(auto_now_add=True, blank=True)
 	updated_datetime = models.DateTimeField(auto_now=True, blank=True)
 	priority = models.IntegerField(default=0, validators=[validate_if_between_1_10])
+	# thumbnail = models.ImageField(upload_to="images/test_uploads/", blank=True, null=True, default='default/no_image.jpg')
 	featured_image = models.ImageField(upload_to="images/test_uploads/", blank=True, null=True, default='default/no_image.jpg')
 	slug = models.SlugField(unique=True, max_length=600)
 

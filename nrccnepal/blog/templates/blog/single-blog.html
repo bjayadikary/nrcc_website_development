@@ -20,7 +20,7 @@
               <h1 class="mb-5">{{ blog.title }}</h1>
 
               <figure class="my-4">
-                <img src="{% static 'blog/img/post-landscape-1.jpg' %}" alt="" class="img-fluid">
+                <img src="{{ blog.featured_image.url }}" alt="" class="img-fluid">
                 <figcaption style="text-align: center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>
               </figure>
 
@@ -146,11 +146,13 @@
               <div class="tab-content" id="pills-tabContent">
 
                 <div class="tab-pane fade show active" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
+                  {% for trending_blog in trending_blogs %}
                   <div class="post-entry-1 border-bottom">
-                    <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>Jul 5th '22</span></div>
-                    <h2 class="mb-2"><a href="#">How to Avoid Distraction and Stay Focused During Video Calls?</a></h2>
-                    <span class="author mb-3 d-block">Jenny Wilson</span>
+                    <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>{{ trending_blog.published_date }}</span></div>
+                    <h2 class="mb-2"><a href="{% url 'blog:single_blog' trending_blog.title|slugify %}">{{ trending_blog.title }}</a></h2>
+                    <span class="author mb-3 d-block">{{ trending_blog.author }}</span>
                   </div>
+                  {% endfor %}
                    <!-- End Trending -->
 
               </div>
