@@ -6,3 +6,4 @@
   ##### --'blog-page.html' that lists all the blogs, 
   ##### --'single-blog.html' that displays blog details
 #### Added Static Files, Created Respective Views, Configured Some Routings, and stuffs...
+#### Configured Models, Blog and Single Post
