@@ -84,9 +84,9 @@
                 <div class="tab-pane fade show active" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
                   {% for trending_blog in trending_blogs %}
                   <div class="post-entry-1 border-bottom">
-                    <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>{{ trending_blog.published_date }}</span></div>
-                    <h2 class="mb-2"><a href="{% url 'blog:single_blog' trending_blog.title|slugify %}">{{ trending_blog.title }}</a></h2>
-                    <span class="author mb-3 d-block">{{ trending_blog.author }}</span>
+                    <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>{{ trending_blog.blogs.published_date }}</span></div>
+                    <h2 class="mb-2"><a href="{% url 'blog:single_blog' trending_blog.blogs.title|slugify %}">{{ trending_blog.blogs.title }}</a></h2>
+                    <span class="author mb-3 d-block">{{ trending_blog.blogs.author }}</span>
                   </div>
                   </div>
                   {% endfor %}

@@ -1,17 +1,16 @@
 from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator, PageNotAnInteger
 from django.template.defaultfilters import slugify
-from .models import Blogs
+from .models import Blogs, TrendingBlogs
 
 
 # Create your views here.
 
-# Retriving the top 5 blogs with highest priority
-trending_blogs = Blogs.objects.all().order_by('-priority', '-published_date')[:4]
-
-
 def blog(request):
-	all_blogs = Blogs.objects.all().order_by('-published_date')
+	# Retriving the top blogs with highest priority
+	trending_blogs = TrendingBlogs.objects.all().order_by('priority')
+
+	all_blogs = Blogs.objects.all().order_by('priority','-updated_datetime','-published_date')
 	paginator = Paginator(all_blogs, 4) # number of objects to display per page
 	current_page = request.GET.get('page') # retreives current page number
 
@@ -27,6 +26,9 @@ def blog(request):
 
 
 def single_blog(request, slug):
+	# Retriving the top blogs with highest priority
+	trending_blogs = TrendingBlogs.objects.all().order_by('priority')
+
 	blog = Blogs.objects.filter(slug=slug).first()
 	return render(request, "blog/single-blog.html", {
 		"blog": blog,

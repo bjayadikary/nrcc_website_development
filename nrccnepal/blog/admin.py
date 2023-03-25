@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Authors, Blogs, UserComments
+from .models import Authors, Blogs, UserComments, TrendingBlogs
 
 
 class BlogsAdmin(admin.ModelAdmin):
@@ -9,3 +9,4 @@ class BlogsAdmin(admin.ModelAdmin):
 admin.site.register(Authors)
 admin.site.register(Blogs, BlogsAdmin)
 admin.site.register(UserComments)
+admin.site.register(TrendingBlogs)

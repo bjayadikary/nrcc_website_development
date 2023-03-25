@@ -9,6 +9,12 @@ def validate_if_between_1_10(value):
 	else:
 		raise ValidationError("This field only accepts integers between 0 and 10")
 
+def validate_if_between_1_4(value):
+	if value <=4 and value >=1:
+		return value
+	else:
+		raise ValidationError("Values should be between 1 and 4 representing rows of Trending block")
+
 
 class Authors(models.Model):
 	author = models.CharField(max_length=100)
@@ -32,6 +38,7 @@ class Blogs(models.Model):
 	priority = models.IntegerField(default=0, validators=[validate_if_between_1_10])
 	# thumbnail = models.ImageField(upload_to="images/test_uploads/", blank=True, null=True, default='default/no_image.jpg')
 	featured_image = models.ImageField(upload_to="images/test_uploads/", blank=True, null=True, default='default/no_image.jpg')
+	# trending_priority = models.IntegerField(default=0, blank=True, validators=[validate_if_between_1_4])
 	slug = models.SlugField(unique=True, max_length=600)
 
 	def save(self):
@@ -42,6 +49,13 @@ class Blogs(models.Model):
 	def __str__(self):
 		return f"{self.title}"
 
+
+class TrendingBlogs(models.Model):
+	blogs = models.ForeignKey(Blogs, on_delete=models.CASCADE)
+	priority = models.IntegerField(blank=False, null=False, unique=True, validators=[validate_if_between_1_4])
+
+	def __str__(self):
+		return f"{self.blogs.title}"
 
 
 class UserComments(models.Model):
