@@ -1,13 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib import messages
-
+from .models import Contact
 # Create your views here.
 
 
 def home(request):
-    return HttpResponse("Hello WOrld")
+    return render(request, 'core/index.html')
 
+def about(request):
+    return render(request, 'core/about.html')
 
 def contact(request):
     if request.method == "POST":
@@ -26,4 +28,4 @@ def contact(request):
         # else:
             # messages.error(request, 'Please Fill Up the Form Correctly!!')
 
-    return render(request, 'index.html')
+    return render(request, 'core/contact.html')
