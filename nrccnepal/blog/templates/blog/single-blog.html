@@ -33,9 +33,10 @@
             </div><!-- End Single Post Content -->
 
             <!-- ======= Comments ======= -->
+
             <div class="comments">
-              <h5 class="comment-title py-4">2 Comments</h5>
-              <div class="comment d-flex mb-4">
+              <h5 class="comment-title py-4">{{ comments.count }} comments</h5>
+<!--               <div class="comment d-flex mb-4">
                 <div class="flex-shrink-0">
                   <div class="avatar avatar-sm rounded-circle">
                     <img class="avatar-img" src="{% static 'blog/img/authors/person-5.jpg' %}" alt="" class="img-fluid">
@@ -87,7 +88,9 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> -->
+
+              {% for comment in comments %}
               <div class="comment d-flex">
                 <div class="flex-shrink-0">
                   <div class="avatar avatar-sm rounded-circle">
@@ -96,15 +99,16 @@
                 </div>
                 <div class="flex-shrink-1 ms-2 ms-sm-3">
                   <div class="comment-meta d-flex">
-                    <h6 class="me-2">Santiago Roberts</h6>
-                    <span class="text-muted">4d</span>
+                    <h6 class="me-2">{{ comment.name }}</h6>
+                    <span class="text-muted">{{ comment.date }}</span>
                   </div>
                   <div class="comment-body">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto laborum in corrupti dolorum, quas delectus nobis porro accusantium molestias sequi.
-                  </div>
+                  {{ comment.message }}</div>
                 </div>
               </div>
+              {% endfor %}
             </div><!-- End Comments -->
+
 
             <!-- ======= Comments Form ======= -->
             <div class="row justify-content-center mt-5">
@@ -112,23 +116,26 @@
               <div class="col-lg-12">
                 <h5 class="comment-title">Leave a Comment</h5>
                 <div class="row">
-                  <div class="col-lg-6 mb-3">
-                    <label for="comment-name">Name</label>
-                    <input type="text" class="form-control" id="comment-name" placeholder="Enter your name">
+                  <!-- Adding Comment Form -->
+                  <form action="" method="post">
+                    {% csrf_token %}
+                    <div class="col-lg-6 mb-3">
+                      <label for="comment-name">Name</label>
+                      {{ comment_form.name }}
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                      <label for="comment-email">Email</label>
+                      {{ comment_form.email }}
+                    </div>
+                    <div class="col-12 mb-3">
+                      <label for="comment-message">Message</label>
+                      {{ comment_form.message }}
+                    </div>
+                    <div class="col-12">
+                      <input type="submit" class="btn btn-primary" value="Post comment">
+                    </div>
                   </div>
-                  <div class="col-lg-6 mb-3">
-                    <label for="comment-email">Email</label>
-                    <input type="text" class="form-control" id="comment-email" placeholder="Enter your email">
-                  </div>
-                  <div class="col-12 mb-3">
-                    <label for="comment-message">Message</label>
-
-                    <textarea class="form-control" id="comment-message" placeholder="Enter your name" cols="30" rows="10"></textarea>
-                  </div>
-                  <div class="col-12">
-                    <input type="submit" class="btn btn-primary" value="Post comment">
-                  </div>
-                </div>
+                </form>
               </div>
             </div><!-- End Comments Form -->
 
@@ -153,28 +160,28 @@
                     <span class="author mb-3 d-block">{{ trending_blog.blogs.author }}</span>
                   </div>
                   {% endfor %}
-                   <!-- End Trending -->
+                  <!-- End Trending -->
 
+                </div>
               </div>
-            </div>
-            <div class="aside-block">
-              <h3 class="aside-title">Tags</h3>
-              <ul class="aside-tags list-unstyled">
-                <li><a href="#">Business</a></li>
-                <li><a href="#">Culture</a></li>
-                <li><a href="#">Sport</a></li>
-                <li><a href="#">Food</a></li>
-                <li><a href="#">Politics</a></li>
-                <li><a href="#">Celebrity</a></li>
-                <li><a href="#">Startups</a></li>
-                <li><a href="#">Travel</a></li>
-              </ul>
-            </div><!-- End Tags -->
+              <div class="aside-block">
+                <h3 class="aside-title">Tags</h3>
+                <ul class="aside-tags list-unstyled">
+                  <li><a href="#">Business</a></li>
+                  <li><a href="#">Culture</a></li>
+                  <li><a href="#">Sport</a></li>
+                  <li><a href="#">Food</a></li>
+                  <li><a href="#">Politics</a></li>
+                  <li><a href="#">Celebrity</a></li>
+                  <li><a href="#">Startups</a></li>
+                  <li><a href="#">Travel</a></li>
+                </ul>
+              </div><!-- End Tags -->
 
+            </div>
           </div>
         </div>
-      </div>
-    </section>
-  </main><!-- End #main -->
-</body>
-{% endblock %}
+      </section>
+    </main><!-- End #main -->
+  </body>
+  {% endblock %}
