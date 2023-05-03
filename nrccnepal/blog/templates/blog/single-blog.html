@@ -7,34 +7,48 @@
 {% block content %}
 <body>
   <main id="main">
+   <!-- ======= Breadcrumbs ======= -->
+   <section class="breadcrumbs">
+    <div class="container">
 
-    <section class="single-post-content">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-9 post-content" data-aos="fade-up">
+      <div class="d-flex justify-content-between align-items-center">
+        <h2>Blog</h2>
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Blog</li>
+        </ol>
+      </div>
 
-            <!-- ======= Single Post Content ======= -->
-            <div class="single-post">
-              <div class="post-meta"><span class="date">Business</span> <span class="mx-1">&bullet;</span> <span>{{ blog.published_date }}</span></div>
-              <h1 class="mb-5">{{ blog.title }}</h1>
+    </div>
+  </section><!-- End Breadcrumbs -->
 
-              <figure class="my-4">
-                <img src="{{ blog.featured_image.url }}" alt="" class="img-fluid">
-                <figcaption style="text-align: center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>
-              </figure>
+  <section class="single-post-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9 post-content" data-aos="fade-up">
 
-              <p><span class="firstcharacter">{{ blog.body|slice:":1" }}</span>
-                {{ blog.body|linebreaksbr|slice:"1:" }}
-              </p>
+          <!-- ======= Single Post Content ======= -->
+          <div class="single-post">
+            <div class="post-meta"><span class="date">{{ blog.category }}</span> <span class="mx-1">&bullet;</span> <span>{{ blog.published_date }}</span></div>
+            <h1 class="mb-5">{{ blog.title }}</h1>
+
+            <figure class="my-4">
+              <img src="{{ blog.featured_image.url }}" alt="" class="img-fluid">
+              <figcaption style="text-align: center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo, odit? </figcaption>
+            </figure>
+
+            <p><span class="firstcharacter">{{ blog.body|slice:":1" }}</span>
+              {{ blog.body|linebreaksbr|slice:"1:" }}
+            </p>
 
 
-              
-            </div><!-- End Single Post Content -->
 
-            <!-- ======= Comments ======= -->
+          </div><!-- End Single Post Content -->
 
-            <div class="comments">
-              <h5 class="comment-title py-4">{{ comments.count }} comments</h5>
+          <!-- ======= Comments ======= -->
+
+          <div class="comments">
+            <h5 class="comment-title py-4">{{ comments.count }} comments</h5>
 <!--               <div class="comment d-flex mb-4">
                 <div class="flex-shrink-0">
                   <div class="avatar avatar-sm rounded-circle">
@@ -93,7 +107,7 @@
               <div class="comment d-flex">
                 <div class="flex-shrink-0">
                   <div class="avatar avatar-sm rounded-circle">
-                    <img class="avatar-img" src="{% static 'blog/img/authors/person-2.jpg' %}" alt="" class="img-fluid">
+                    <img class="avatar-img" src="{% static 'blog/img/authors/person-x.jpg' %}" alt="" class="img-fluid">
                   </div>
                 </div>
                 <div class="flex-shrink-1 ms-2 ms-sm-3">
@@ -154,7 +168,7 @@
                 <div class="tab-pane fade show active" id="pills-trending" role="tabpanel" aria-labelledby="pills-trending-tab">
                   {% for trending_blog in trending_blogs %}
                   <div class="post-entry-1 border-bottom">
-                    <div class="post-meta"><span class="date">Sport</span> <span class="mx-1">&bullet;</span> <span>{{ trending_blog.blogs.published_date }}</span></div>
+                    <div class="post-meta"><span class="date">{{ trending_blog.blogs.category }}</span> <span class="mx-1">&bullet;</span> <span>{{ trending_blog.blogs.published_date }}</span></div>
                     <h2 class="mb-2"><a href="{% url 'blog:single_blog' trending_blog.blogs.title|slugify %}">{{ trending_blog.blogs.title }}</a></h2>
                     <span class="author mb-3 d-block">{{ trending_blog.blogs.author }}</span>
                   </div>
@@ -163,19 +177,19 @@
 
                 </div>
               </div>
+              <!-- Category -->
               <div class="aside-block">
                 <h3 class="aside-title">Tags</h3>
                 <ul class="aside-tags list-unstyled">
-                  <li><a href="#">Business</a></li>
-                  <li><a href="#">Culture</a></li>
-                  <li><a href="#">Sport</a></li>
-                  <li><a href="#">Food</a></li>
-                  <li><a href="#">Politics</a></li>
-                  <li><a href="#">Celebrity</a></li>
-                  <li><a href="#">Startups</a></li>
-                  <li><a href="#">Travel</a></li>
+                  {% for category in categories %}
+                  {% if category.category_blog.exists %}
+                  <li><a href="{% url 'blog:categorized_blog' category|slugify %}">{{ category }}</a></li>
+                  {% endif %}
+                  {% endfor %}
+                  
                 </ul>
-              </div><!-- End Tags -->
+              </div>
+              <!-- End Category -->
 
             </div>
           </div>

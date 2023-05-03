@@ -29,9 +29,23 @@ class Authors(models.Model):
 		return f"{self.author}"
 
 
+class Categories(models.Model):
+	category = models.CharField("Category", max_length=100)
+	slug = models.SlugField(unique=True, max_length=100, blank=True, null=True)
+
+	def save(self):
+		if not self.slug:
+			self.slug = slugify(self.category)
+		super().save()
+
+	def __str__(self):
+		return f"{self.category}"
+
+
 class Blogs(models.Model):
 	author = models.ForeignKey(Authors, on_delete=models.PROTECT, related_name='author_blog') # related_name allows accessing Blogs of Author
 	title = models.CharField("Blog Title", max_length=500)
+	category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='category_blog', default=1)
 	body = models.TextField(default="Type here...")
 	published_date = models.DateField(auto_now_add=True, blank=True)
 	updated_datetime = models.DateTimeField(auto_now=True, blank=True)
