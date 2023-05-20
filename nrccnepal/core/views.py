@@ -29,3 +29,6 @@ def contact(request):
             # messages.error(request, 'Please Fill Up the Form Correctly!!')
 
     return render(request, 'core/contact.html')
+
+def research(request):
+    return render(request, 'core/research.html')
